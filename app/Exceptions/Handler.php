@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use GrahamCampbell\Exceptions\NewExceptionHandler as ExceptionHandler;
 
@@ -42,10 +43,16 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
-    }
+     public function render($request, Exception $exception)
+{
+   if ($exception instanceof AuthenticationException) {
+       return $this->unauthenticated($request, $exception);
+   } elseif ($exception instanceof ValidationException) {
+       return $this->convertValidationExceptionToResponse($exception, $request);
+   }
+
+   return parent::render($request, $exception);
+}
 
     /**
      * Convert an authentication exception into an unauthenticated response.
