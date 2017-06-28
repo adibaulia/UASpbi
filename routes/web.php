@@ -15,6 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/admin', 'AdminController@index');
+Route::get('/petugas', 'PetugasController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/login', 'LoginController@index');
+Route::post('/login', 'LoginController@checkLogin');
+
+Route::get('/logout', function(){
+  Auth::logout();
+  return redirect('/login');
+});
+
+Route::get('/registerAdmin', 'RegisterController@admin');
+Route::get('/register', 'RegisterController@index');
+Route::post('/register', 'RegisterController@create');
