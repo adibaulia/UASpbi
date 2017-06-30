@@ -42,6 +42,13 @@
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
             @yield('navbar')
+            @if (Session::has('user'))
+            
+
+                <li><a href="#">{{Session::get('user')->name}}</a></li>
+
+
+            @endif
             <li ><a href="/admin">DASHBOARD</a></li>
             <li><a href="/logout">LOGOUT</a></li>
           </ul>

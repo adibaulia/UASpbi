@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Session;
 
 class PetugasController extends Controller
 {
@@ -12,8 +13,9 @@ class PetugasController extends Controller
     $this->middleware('petugas');
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    return view('petugas');
+    $users = $request->session()->get('user');
+    return view('petugas.index' , ['user' => $users]);
   }
 }

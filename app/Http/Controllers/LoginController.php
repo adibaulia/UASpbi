@@ -29,19 +29,19 @@ class LoginController extends Controller
     ]);
 
         if (Auth::attempt([
-        'email' => $request->email,
-        'password' => $request->password
-       ])) {
-         $user=User::where('email',$request->email)->first();
-         //dd($user);
-         \Session::flash('user', $user);
-
-         flash()->overlay('Berhasil Login');
-         return redirect('admin');
+          'email' => $request->email,
+          'password' => $request->password
+          ])) {
+          $user=User::where('email',$request->email)->first();
+          //dd($user);
+          //\Session::flash('user', $user);
+          $request->session()->push('user', $user);
+          flash()->overlay('Berhasil Login');
+          return redirect('admin');
         } else {
-         flash()->overlay('Password anda salah, Silahkan Dicek kembali');
-         Auth::logout();
-         return redirect('login');
+          flash()->overlay('Password anda salah, Silahkan Dicek kembali');
+          Auth::logout();
+          return redirect('login');
         }
     }
 }

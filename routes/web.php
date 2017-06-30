@@ -10,12 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use app\Kota;
 
 Route::get('/', function () {
     return redirect('login');
 });
 
 Route::get('/admin', 'AdminController@index');
+Route::get('/admin/{name}', 'AdminController@show');
+Route::post('/admin/tambahKegiatan', 'AdminController@tambahKegiatan');
+
+
+
 Route::get('/petugas', 'PetugasController@index');
 
 Route::get('/login', 'LoginController@index');
@@ -23,6 +29,7 @@ Route::post('/login', 'LoginController@checkLogin');
 
 Route::get('/logout', function(){
   Auth::logout();
+  Session::flush();
   return redirect('/login');
 });
 

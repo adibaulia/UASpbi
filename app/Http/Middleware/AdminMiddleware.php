@@ -18,7 +18,7 @@ class AdminMiddleware
         if(auth()->check() && !auth()->user()->jenis()){
           return redirect('petugas');
         }else{
-        return $next($request);  
+          return $next($request);
         }
 
     }
