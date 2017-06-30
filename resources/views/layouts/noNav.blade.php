@@ -55,7 +55,7 @@
 	 ***************************************************************************************************************** -->
   <div id="headerwrap">
     <div class="container">
-
+       @include('flash::message')
       <div class="row">
 
         @yield('headerwrap')

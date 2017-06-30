@@ -41,6 +41,7 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
+            @yield('navbar')
             <li ><a href="/admin">DASHBOARD</a></li>
             <li><a href="/logout">LOGOUT</a></li>
           </ul>
@@ -53,7 +54,7 @@
 	 ***************************************************************************************************************** -->
 	<div id="headerwrap">
 	    <div class="container">
-
+         @include('flash::message')
 			<div class="row">
 
 					@yield('headerwrap')

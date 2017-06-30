@@ -23,17 +23,25 @@ class LoginController extends Controller
 
     public function checkLogin(Request $request)
     {
+      $this->validate($request, [
+      'email' => 'required|string|email|max:255|exists:users,email',
+      // 'password' => 'required|string|min:6|exists:users,password',
+    ]);
+
         if (Auth::attempt([
         'email' => $request->email,
         'password' => $request->password
        ])) {
-            //flash()->overlay('Berhasil Login');
+         $user=User::where('email',$request->email)->first();
+         //dd($user);
+         \Session::flash('user', $user);
+
+         flash()->overlay('Berhasil Login');
          return redirect('admin');
-         //return redirect('dashboard');
         } else {
-            //flash()->overlay('Username / password anda salah');
+         flash()->overlay('Password anda salah, Silahkan Dicek kembali');
          Auth::logout();
-            return redirect('login');
+         return redirect('login');
         }
     }
 }

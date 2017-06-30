@@ -45,7 +45,8 @@ class RegisterController extends Controller
         $profile = new Profil_petugas();
         $profile->USER_ID = User::max('id');
       //dd($profile->USER_ID);
-      $profile->save();
+        $profile->save();
+        flash()->overlay('Password anda salah, Silahkan Dicek kembali');
         return redirect('login');
     }
 }
