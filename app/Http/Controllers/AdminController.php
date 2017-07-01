@@ -6,8 +6,12 @@ use App\Kota;
 use App\Provinsi;
 use App\Kegiatan;
 use App\User;
+use App\Peserta;
 use App\ProfilPetugas;
+use App\DetailPeserta;
+use App\DetailSosialisasi;
 use App\JenisPetugas;
+use App\BerkasKegiatan;
 use App\TahunAkademikSosialisasi;
 use Illuminate\Http\Request;
 use App\Http\Middleware;
@@ -32,12 +36,20 @@ class AdminController extends Controller
 
   public function show($name)
   {
+
+
     $kota=Kota::all();
     $provinsi=Provinsi::all();
     $tahun=TahunAkademikSosialisasi::all();
+    $petugas=JenisPetugas::find(2)->users()->get();
+    $peserta=Peserta::all();
     //$join=provinsi::find(1)->users()->first();
-    //dd($kota);
-    return view('admin.'.$name , ['provinsi' => $provinsi], ['tahun' => $tahun]);
+    //dd($petugas);
+    return view('admin.'.$name)->with('provinsi', $provinsi)
+                               ->with('tahun', $tahun)
+                               ->with('kota', $kota)
+                               ->with('petugas', $petugas)
+                               ->with('peserta', $peserta);
   }
 
   public function tambahKegiatan(Request $request)
@@ -45,8 +57,12 @@ class AdminController extends Controller
     // $this->validate($request, [
     //   'name' => 'required|string|max:255',
     //   'email' => 'required|string|email|max:255|unique:users',
-    //   'password' => 'required|string|min:6|confirmed',
-    // ]);
+    //   'pUserassword' => 'required|string|min:6|confirmed',
+    //
+    $batasAkhir=date('Y-m-d', strtotime($request->tanggal_kegiatan. ' + 17 days'));
+
+
+
     Kegiatan::create([
       'NAMA_KEGIATAN' => $request->nama_kegiatan,
       'WAKTU_KEGIATAN' => $request->waktu_kegiatan,
@@ -55,9 +71,28 @@ class AdminController extends Controller
       'TAHUN_AKADEMIK_ID' => $request->tahun_akademik,
     ]);
 
+    $idkegiatan=Kegiatan::max('id');
+
+    DetailPeserta::create([
+      'PESERTA_ID' => $request->jenis_peserta,
+      'KEGIATAN_ID' => $idkegiatan,
+      'KOTA_ID' => $request->kota_kegiatan,
+      'NAMA_PESERTA' => $request->nama_peserta,
+    ]);
+
+    DetailSosialisasi::create([
+      'USER_ID' => $request->petugas_kegiatan,
+      'KEGIATAN_ID' => $idkegiatan,
+      'BATAS_PENGISIAN' => $batasAkhir,
+    ]);
+
+    $berkas = new BerkasKegiatan();
+    $berkas->KEGIATAN_ID = $idkegiatan;
+    $berkas->save();
+    echo "berhasil";
 
 
-    return view('admin.index');
+
   }
 
 }

@@ -10,6 +10,8 @@ class TahunAkademikSosialisasi extends Model {
 
     protected $table = 'tahun_akademik_sosialisasi';
     protected $fillable = ['ID', 'TAHUN_AWAL', 'TAHUN_AKHIR'];
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
 
     public function kegiatans() {

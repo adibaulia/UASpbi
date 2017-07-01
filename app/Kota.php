@@ -10,7 +10,8 @@ class Kota extends Model {
 
     protected $table = 'kota';
     protected $fillable = ['ID', 'PROVINSI_ID', 'NAMA_KOTA'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function provinsi() {
         return $this->belongsTo(\App\Provinsi::class, 'PROVINSI_ID', 'ID');

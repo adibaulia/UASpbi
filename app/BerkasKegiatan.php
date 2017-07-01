@@ -10,7 +10,8 @@ class BerkasKegiatan extends Model {
 
     protected $table = 'berkas_kegiatan';
     protected $fillable = ['ID', 'KEGIATAN_ID', 'JENIS_ID', 'NAMAFILE'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function kegiatan() {
         return $this->belongsTo(\App\Kegiatan::class, 'KEGIATAN_ID', 'ID');

@@ -10,7 +10,8 @@ class Provinsi extends Model {
 
     protected $table = 'propinsi';
     protected $fillable = ['ID', 'NAMA_PROVINSI'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function kota() {
         return $this->hasMany(\App\Kota::class, 'PROVINSI_ID', 'ID');

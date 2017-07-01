@@ -10,7 +10,8 @@ class Kegiatan extends Model {
 
     protected $table = 'kegiatan';
     protected $fillable = ['ID', 'KOTA_ID', 'TAHUN_AKADEMIK_ID', 'NAMA_KEGIATAN', 'ALAMAT_KEGIATAN', 'TANGGAL_KEGIATAN', 'WAKTU_KEGIATAN'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function tahunAkademikSosialisasi() {
         return $this->belongsTo(\App\TahunAkademikSosialisasi::class, 'TAHUN_AKADEMIK_ID', 'ID');

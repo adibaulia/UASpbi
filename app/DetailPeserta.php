@@ -10,7 +10,8 @@ class DetailPeserta extends Model {
 
     protected $table = 'detail_peserta';
     protected $fillable = ['PESERTA_ID', 'KEGIATAN_ID', 'KOTA_ID', 'NAMA_PESERTA'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function kota() {
         return $this->belongsTo(\App\Kota::class, 'KOTA_ID', 'ID');

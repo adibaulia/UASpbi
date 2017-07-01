@@ -10,7 +10,8 @@ class DetailSosialisasi extends Model {
 
     protected $table = 'detail_sosialisasi';
     protected $fillable = ['KEGIATAN_ID', 'USER_ID', 'DETAIL_KEGIATAN', 'KENDALA_KEGIATAN', 'BATAS_PENGISIAN'];
-
+    public $timestamps = false;
+    protected $guarded = ['id'];
 
     public function kegiatan() {
         return $this->belongsTo(\App\Kegiatan::class, 'KEGIATAN_ID', 'ID');
