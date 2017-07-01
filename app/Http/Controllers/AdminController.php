@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Kota;
 use App\Provinsi;
 use App\Kegiatan;
-use App\TahunAkademik;
+use App\User;
+use App\ProfilPetugas;
+use App\JenisPetugas;
+use App\TahunAkademikSosialisasi;
 use Illuminate\Http\Request;
 use App\Http\Middleware;
 use Illuminate\Support\Facades\Input;
@@ -26,12 +30,13 @@ class AdminController extends Controller
     return view('admin.index' , ['user' => $users]);
   }
 
-  public function show($name, Request $request)
+  public function show($name)
   {
     $kota=Kota::all();
     $provinsi=Provinsi::all();
-    $tahun=TahunAkademik::all();
-    $users = $request->session()->get('user');
+    $tahun=TahunAkademikSosialisasi::all();
+    //$join=provinsi::find(1)->users()->first();
+    //dd($kota);
     return view('admin.'.$name , ['provinsi' => $provinsi], ['tahun' => $tahun]);
   }
 
@@ -49,6 +54,8 @@ class AdminController extends Controller
       'ALAMAT_KEGIATAN' => $request->alamat_kegiatan,
       'TAHUN_AKADEMIK_ID' => $request->tahun_akademik,
     ]);
+
+
 
     return view('admin.index');
   }

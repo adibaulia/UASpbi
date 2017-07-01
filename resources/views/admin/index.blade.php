@@ -10,7 +10,7 @@
       <div class="col-md-4 col-md-offset-2">
         <i class="fa fa-plus-circle" style="font-size:100px"></i>
             <div class="top-right links">
-                    <p><br><a href="admin/kegiatan" class="btn btn-theme">Tambah Kegiatan</a></p>
+                    <p><br><a href="admin/tambahKegiatan" class="btn btn-theme">Tambah Kegiatan</a></p>
             </div>
       </div>
       <div class="col-md-4">

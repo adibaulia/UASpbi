@@ -35,7 +35,7 @@ class LoginController extends Controller
           $user=User::where('email',$request->email)->first();
           //dd($user);
           //\Session::flash('user', $user);
-          $request->session()->push('user', $user);
+          $request->session()->put('user', $user);
           flash()->overlay('Berhasil Login');
           return redirect('admin');
         } else {

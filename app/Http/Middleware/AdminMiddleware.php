@@ -16,6 +16,7 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         if(auth()->check() && !auth()->user()->jenis()){
+          \Session::reflash();
           return redirect('petugas');
         }else{
           return $next($request);

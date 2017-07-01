@@ -35,4 +35,21 @@ class User extends Authenticatable
         return false;
       }
     }
+
+    public function jenisPetugas() {
+        return $this->belongsTo(\App\JenisPetugas::class, 'JENIS_ID', 'ID');
+    }
+
+    public function kegiatans() {
+        return $this->belongsToMany(\App\Kegiatan::class, 'detail_sosialisasi', 'USER_ID', 'KEGIATAN_ID');
+    }
+
+    public function detailSosialisasis() {
+        return $this->hasMany(\App\DetailSosialisasi::class, 'USER_ID', 'id');
+    }
+
+    public function profilPetugas() {
+        return $this->hasMany(\App\ProfilPetugas::class, 'USER_ID', 'id');
+    }
+
 }

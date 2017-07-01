@@ -43,7 +43,7 @@
           <ul class="nav navbar-nav">
             @yield('navbar')
             @if (Session::has('user'))
-            
+
 
                 <li><a href="#">{{Session::get('user')->name}}</a></li>
 
