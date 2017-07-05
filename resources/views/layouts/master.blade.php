@@ -17,6 +17,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <script src="{{ asset('js/modernizr') }}"></script>
+    @yield('css')
 
   </head>
 
@@ -105,8 +106,8 @@
 	<script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
   	<script src="{{ asset('js/jquery.isotope.min.js') }}"></script>
   	<script src="{{ asset('js/custom.js') }}"></script>
-    <script src="//code.jquery.com/jquery.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script>
         $('#flash-overlay-modal').modal();
@@ -194,5 +195,7 @@
 	});
 })(jQuery);
 </script>
+
+@yield('js')
   </body>
 </html>

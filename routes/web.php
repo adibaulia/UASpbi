@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/{name}', 'AdminController@show');
 Route::post('/admin/tambahKegiatan', 'AdminController@tambahKegiatan');
+Route::get('/getKota', 'AdminController@getKota');
 
 
 

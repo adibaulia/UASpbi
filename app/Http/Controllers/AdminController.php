@@ -37,7 +37,6 @@ class AdminController extends Controller
   public function show($name)
   {
 
-
     $kota=Kota::all();
     $provinsi=Provinsi::all();
     $tahun=TahunAkademikSosialisasi::all();
@@ -45,6 +44,7 @@ class AdminController extends Controller
     $peserta=Peserta::all();
     //$join=provinsi::find(1)->users()->first();
     //dd($petugas);
+
     return view('admin.'.$name)->with('provinsi', $provinsi)
                                ->with('tahun', $tahun)
                                ->with('kota', $kota)
@@ -59,14 +59,11 @@ class AdminController extends Controller
     //   'email' => 'required|string|email|max:255|unique:users',
     //   'pUserassword' => 'required|string|min:6|confirmed',
     //
-    $batasAkhir=date('Y-m-d', strtotime($request->tanggal_kegiatan. ' + 17 days'));
-
-
-
+    $batasAkhir=date('Y-m-d', strtotime($request->tanggal_kegiatan_submit. ' + 14 days'));
     Kegiatan::create([
       'NAMA_KEGIATAN' => $request->nama_kegiatan,
       'WAKTU_KEGIATAN' => $request->waktu_kegiatan,
-      'TANGGAL_KEGIATAN' => $request->tanggal_kegiatan,
+      'TANGGAL_KEGIATAN' => $request->tanggal_kegiatan_submit,
       'ALAMAT_KEGIATAN' => $request->alamat_kegiatan,
       'TAHUN_AKADEMIK_ID' => $request->tahun_akademik,
     ]);
@@ -91,8 +88,12 @@ class AdminController extends Controller
     $berkas->save();
     echo "berhasil";
 
+  }
 
-
+  public function getKota(Request $request){
+    $get=Kota::where('provinsi_id', $request->id)->get();
+    //dd ($get);
+    return response()->json($get);
   }
 
 }

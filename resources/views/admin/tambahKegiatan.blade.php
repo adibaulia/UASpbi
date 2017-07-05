@@ -2,6 +2,7 @@
 @section('title')
   Tambah Kegiatan
 @endsection
+
 @section('headerwrap')
   <div class="container">
       <div class="row">
@@ -74,14 +75,14 @@
                           <div class="form-group">
                               <label for="username" class="col-md-4 control-label">Waktu Kegiatan</label>
                               <div class="col-md-6">
-                                  <input id="waktu" type="time" class="form-control" name="waktu_kegiatan" required autofocus>
+                                  <input id="waktu" type="time" class="form-control timepicker" name="waktu_kegiatan" required autofocus>
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label for="username" class="col-md-4 control-label">Tanggal Kegiatan</label>
                               <div class="col-md-6">
-                                  <input id="tanggal" type="date" class="form-control" name="tanggal_kegiatan" required autofocus>
+                                  <input id="tanggal" type="date" class="form-control datepicker" name="tanggal_kegiatan" required autofocus>
                               </div>
                           </div>
 
@@ -92,7 +93,7 @@
                                   <select id="provinsi" class="form-control" name="provinsi_kegiatan" required autofocus>
                                     <option disabled selected>Pilih Provinsi</option>
                                     @foreach ($provinsi as $provinsi1)
-                                      <option value="">{{$provinsi1->NAMA_PROVINSI}}</option>
+                                      <option value="{{$provinsi1->ID}}">{{$provinsi1->NAMA_PROVINSI}}</option>
                                     @endforeach
 
                                     </select>
@@ -103,10 +104,6 @@
                               <label for="username" class="col-md-4 control-label" >Kota/Kabupaten</label>
                               <div class="col-md-6">
                                   <select id="kota" class="form-control" name="kota_kegiatan" required autofocus>
-                                    <option disabled selected>Pilih Kota</option>
-                                    @foreach ($kota as $kota1)
-                                      <option value="{{$kota1->ID}}">{{$kota1->NAMA_KOTA}}</option>
-                                    @endforeach
                                     </select>
                               </div>
                           </div>
@@ -133,3 +130,65 @@
       </div>
   </div>
 @endsection
+
+@section('css')
+  <link href="{{ asset('css/themes/default.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/themes/default.date.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/themes/default.time.css') }}" rel="stylesheet">
+@endsection
+
+@section('js')
+  <script type="text/javascript" src="{{asset('js/picker.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/picker.date.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/picker.time.js')}}"></script>
+  {{-- <script type="text/javascript" src="{{asset('js/materialize.clockpicker.js')}}"></script> --}}
+  <script type="text/javascript">
+    $('.datepicker').pickadate({
+      selectMonths: true,
+      selectYears:true, // Creates a dropdown to control month
+      formatSubmit: 'yyyy-mm-dd',
+    });
+  </script>
+  <script type="text/javascript">
+    $('.timepicker').pickatime({
+        min: [7,30],
+        max: [21,0],
+        format: 'H:i',
+        formatLabel: '<b>H</b>:i',
+        formatSubmit: 'H:i',
+        hiddenName: true,
+    })
+  </script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  //Memilih KOTA
+  $('select[name="provinsi_kegiatan"]').on('change',function(){
+     var provinsi_id=$(this).val();
+     console.log(provinsi_id);
+     if(provinsi_id) {
+         $.ajax({
+           type:'get',
+           url:'{!!URL::to('/getKota')!!}',
+           data:{'id':provinsi_id},
+           dataType: "json",
+           success:function(data) {
+             console.log('success');
+             $('select[name="kota_kegiatan"]').empty().html();
+             $('select[name="kota_kegiatan"]').append('<option value="" disabled selected>Pilih Kota</option>');
+             $.each(data, function(index, element) {
+                 $('select[name="kota_kegiatan"]').append('<option value="'+ element.ID +'">'+ element.NAMA_KOTA +'</option>');
+             });
+         }
+         });
+     }else{
+         $('select[name="kota_kegiatan"]').empty();
+     }
+
+ });
+});
+ </script>
+ @endsection
