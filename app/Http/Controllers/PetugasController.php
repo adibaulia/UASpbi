@@ -10,12 +10,16 @@ class PetugasController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('petugas');
+    $this->middleware('petugas', ['except'=>'profilPetugas']);
   }
 
-  public function index(Request $request)
+  public function index()
   {
-    $users = $request->session()->get('user');
-    return view('petugas.index' , ['user' => $users]);
+    return view('petugas.index');
+  }
+
+  public function profilPetugas()
+  {
+    return view('profilPetugas');
   }
 }

@@ -191,4 +191,35 @@ $(document).ready(function(){
  });
 });
  </script>
+
+
+ <script type="text/javascript">
+ $(document).ready(function(){
+
+   //Memilih KOTA
+   $('input[name="tanggal_kegiatan"]').on('change',function(){
+      var tanggal_kegiatan_submit=$(this).val();
+      console.log(tanggal_kegiatan_submit);
+      if(tanggal_kegiatan_submit) {
+          $.ajax({
+            type:'get',
+            url:'{!!URL::to('/checkTanggal')!!}',
+            data:{'id':tanggal_kegiatan_submit},
+            dataType: "json",
+            success:function(data) {
+              console.log('success');
+              $('select[name="kota_kegiatan"]').empty().html();
+              $('select[name="kota_kegiatan"]').append('<option value="" disabled selected>Pilih Kota</option>');
+              $.each(data, function(index, element) {
+                  $('select[name="kota_kegiatan"]').append('<option value="'+ element.ID +'">'+ element.NAMA_KOTA +'</option>');
+              });
+          }
+          });
+      }else{
+          $('select[name="kota_kegiatan"]').empty();
+      }
+
+  });
+ });
+  </script>
  @endsection

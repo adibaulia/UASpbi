@@ -20,6 +20,10 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/admin/{name}', 'AdminController@show');
 Route::post('/admin/tambahKegiatan', 'AdminController@tambahKegiatan');
 Route::get('/getKota', 'AdminController@getKota');
+Route::get('/checkTanggal', 'AdminController@checkTanggal');
+
+Route::get('/profilPetugas', 'PetugasController@profilPetugas');
+
 
 
 

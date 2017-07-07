@@ -46,7 +46,7 @@
             @if (Session::has('user'))
 
 
-                <li><a href="#">{{Session::get('user')->name}}</a></li>
+                <li><a href="profilPetugas">{{Session::get('user')->name}}</a></li>
 
 
             @endif

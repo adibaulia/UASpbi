@@ -96,4 +96,9 @@ class AdminController extends Controller
     return response()->json($get);
   }
 
+  public function checkTanggal(Request $request){
+    dd ($request->id);
+    return response()->json($get);
+  }
+
 }
