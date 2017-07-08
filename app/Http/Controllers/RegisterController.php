@@ -42,11 +42,11 @@ class RegisterController extends Controller
           'JENIS_ID' => $request->jenis,
         ]);
 
-        $profile = new Profil_petugas();
+        $profile = new ProfilPetugas();
         $profile->USER_ID = User::max('id');
       //dd($profile->USER_ID);
         $profile->save();
-        flash()->overlay('Password anda salah, Silahkan Dicek kembali');
+        //flash()->overlay('Password anda salah, Silahkan Dicek kembali');
         return redirect('login');
     }
 }

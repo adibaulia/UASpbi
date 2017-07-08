@@ -97,8 +97,24 @@ class AdminController extends Controller
   }
 
   public function checkTanggal(Request $request){
-    dd ($request->id);
-    return response()->json($get);
+    $get=Kegiatan::where('tanggal_kegiatan', $request->tanggal)->first();
+//dd ($get);
+    if($get==null){
+      $petugas=JenisPetugas::find(2)->users()->get();
+      //dd($petugas);
+      return response()->json($petugas);
+    }else{
+      //dd($get->ID);
+      $oke=DetailSosialisasi::where('KEGIATAN_ID', $get->ID)->first();
+      //dd($oke->USER_ID);
+      $check=User::where([['ID','!=', $oke->USER_ID],['JENIS_ID','2']])->get();
+    //  dd ($check);
+//
+      return response()->json($check);
+    }
+
+    //dd($oke);
+
   }
 
 }

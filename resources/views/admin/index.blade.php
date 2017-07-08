@@ -13,10 +13,7 @@
                     <p><br><a href="admin/tambahKegiatan" class="btn btn-theme">Tambah Kegiatan</a></p>
             </div>
       </div>
-      <div class="col-md-4">
-        <i class="fa fa-th-list" aria-hidden="true" style="font-size:100px"></i>
-        <p><br/><a href="/listPertandingan" class="btn btn-theme">List Pertandingan</a></p>
-      </div>
     </div>
   </div><! --/container -->
+
 @endsection

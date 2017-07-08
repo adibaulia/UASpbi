@@ -46,12 +46,12 @@
             @if (Session::has('user'))
 
 
-                <li><a href="profilPetugas">{{Session::get('user')->name}}</a></li>
+                <li><a href="{!!URL::to('/profilPetugas')!!}">{{Session::get('user')->name}}</a></li>
 
 
             @endif
-            <li ><a href="/admin">DASHBOARD</a></li>
-            <li><a href="/logout">LOGOUT</a></li>
+            <li ><a href="{!!URL::to('/admin')!!}">DASHBOARD</a></li>
+            <li><a href="{!!URL::to('/logout')!!}">LOGOUT</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

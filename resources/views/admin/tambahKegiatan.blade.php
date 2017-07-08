@@ -144,6 +144,8 @@
   {{-- <script type="text/javascript" src="{{asset('js/materialize.clockpicker.js')}}"></script> --}}
   <script type="text/javascript">
     $('.datepicker').pickadate({
+      monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+      weekdaysShort: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
       selectMonths: true,
       selectYears:true, // Creates a dropdown to control month
       formatSubmit: 'yyyy-mm-dd',
@@ -196,27 +198,28 @@ $(document).ready(function(){
  <script type="text/javascript">
  $(document).ready(function(){
 
-   //Memilih KOTA
+   //Memilih Petugas
    $('input[name="tanggal_kegiatan"]').on('change',function(){
-      var tanggal_kegiatan_submit=$(this).val();
-      console.log(tanggal_kegiatan_submit);
-      if(tanggal_kegiatan_submit) {
+    var tanggal=$('input[name="tanggal_kegiatan_submit"]').val();
+    console.log(tanggal);
+      if(tanggal) {
           $.ajax({
             type:'get',
             url:'{!!URL::to('/checkTanggal')!!}',
-            data:{'id':tanggal_kegiatan_submit},
+            data:{'tanggal':tanggal},
             dataType: "json",
             success:function(data) {
+              console.log(tanggal);
               console.log('success');
-              $('select[name="kota_kegiatan"]').empty().html();
-              $('select[name="kota_kegiatan"]').append('<option value="" disabled selected>Pilih Kota</option>');
+              $('select[name="petugas_kegiatan"]').empty().html();
+              $('select[name="petugas_kegiatan"]').append('<option value="" disabled selected>Pilih Petugas yang tersedia</option>');
               $.each(data, function(index, element) {
-                  $('select[name="kota_kegiatan"]').append('<option value="'+ element.ID +'">'+ element.NAMA_KOTA +'</option>');
+                  $('select[name="petugas_kegiatan"]').append('<option value="'+ element.id +'">'+ element.name +'</option>');
               });
           }
           });
       }else{
-          $('select[name="kota_kegiatan"]').empty();
+          $('select[name="petugas_kegiatan"]').empty();
       }
 
   });
