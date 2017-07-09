@@ -57,15 +57,15 @@
     <div class="container">
        @include('flash::message')
       <div class="row">
-
         @yield('headerwrap')
-
       </div>
       <!-- /row -->
     </div>
     <!-- /container -->
   </div>
   <!-- /headerwrap -->
+
+  @yield('content')
 
   <!-- *****************************************************************************************************************
 	 FOOTER

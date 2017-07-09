@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use App\Http\Middleware;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -98,7 +98,6 @@ class AdminController extends Controller
 
   public function checkTanggal(Request $request){
     $get=Kegiatan::where('tanggal_kegiatan', $request->tanggal)->first();
-//dd ($get);
     if($get==null){
       $petugas=JenisPetugas::find(2)->users()->get();
       //dd($petugas);

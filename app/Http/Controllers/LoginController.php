@@ -32,7 +32,7 @@ class LoginController extends Controller
           'email' => $request->email,
           'password' => $request->password
           ])) {
-          $user=User::where('email',$request->email)->first();
+          $user=auth()->user();
           //dd($user);
           //\Session::flash('user', $user);
           $request->session()->put('user', $user);
