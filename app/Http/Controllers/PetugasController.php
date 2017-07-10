@@ -32,7 +32,8 @@ class PetugasController extends Controller
   {
     $users = \Session::get('user');
     $get=User::find($users->id);
-    if(empty($get->kegiatans)){
+    //dd($get->kegiatans);
+    if(count($get->kegiatans)==0){
       return view('petugas.kontakAdmin');
     }else{
       $pj=DetailSosialisasi::where('USER_ID',$users->id)->with('kegiatan')->get();
@@ -51,18 +52,36 @@ class PetugasController extends Controller
     return view('profilPetugas');
   }
 
+  public function laporan($laporan)
+  {
+    echo $laporan;
+  }
 
-  public function jadwal($id)
+
+  public function jadwal($bulan)
   {
     $users = \Session::get('user');
-    $pj=User::find($users->id)->kegiatans()->whereMonth('TANGGAL_KEGIATAN',$id)->get();
+    $pj=User::find($users->id)->kegiatans()->whereMonth('TANGGAL_KEGIATAN',$bulan)->get();
     //dd($pj);
-    //echo $id;
+    $getBulan=date("F", mktime(0, 0, 0, $bulan, 10));
+    if(count($pj)==0){
+      return view('petugas.kontakAdmin')->with('bulan',$getBulan);
+    }else{
+      foreach ($pj as $ID) {
+        $get=Kegiatan::where('ID',$ID->ID)->get();
+        foreach ($get as $gets) {
+          foreach ($gets->detailPeserta as $peserta) {
+            echo $peserta->KOTA_ID.'<br>';
+          }
+        }
+      }
 
-    $bulan=date("F", mktime(0, 0, 0, $id, 10));
 
-    return view('petugas.jadwal')->with('jadwal', $pj)
-                                 ->with('bulan',$bulan);
+
+      return view('petugas.jadwal')->with('jadwal', $pj)
+                                   ->with('bulan',$getBulan);
+
+    }
   }
 
 

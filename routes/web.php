@@ -14,7 +14,7 @@ use app\Kota;
 
 Route::get('/', function () {
     return view('landingPage');
-});
+})->middleware('guest');
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/{name}', 'AdminController@show');
@@ -28,7 +28,8 @@ Route::get('/profilPetugas', 'PetugasController@profilPetugas');
 
 
 Route::get('/petugas', 'PetugasController@index');
-Route::get('/petugas/jadwal/{id}', 'PetugasController@jadwal');
+Route::get('/petugas/jadwal/{bulan}', 'PetugasController@jadwal');
+Route::get('/petugas/laporan/{laporan}', 'PetugasController@laporan');
 
 Route::get('/login', 'LoginController@index');
 Route::post('/login', 'LoginController@checkLogin');
